@@ -13,18 +13,32 @@ class App extends Component {
         showPersons: false
     };
 
-    nameChangedHandler = (event) => {
+    nameChangedHandler = (event, id) => {
+        //Find the index of the person comp that needs the name changed
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        //Copy the person from the original state array
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        //Update the name from the event that triggered the update
+        person.name = event.target.value;
+
+        //Make another copy of original array and then update the name
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
+        //Merge the original state with the updated one
         this.setState({
-                persons: [
-                    {name: 'Max', age: 28},
-                    {name: event.target.value, age: 29},
-                    {name: 'Stephanie', age: 27},
-                ]
+            persons: persons
             }
         )
     };
 
-    deletePersonHandler = (personIndex) =>{
+    deletePersonHandler = (personIndex) => {
         //const persons = this.state.persons.slice();
         const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
@@ -56,6 +70,7 @@ class App extends Component {
                             age={person.age}
                             click={() => this.deletePersonHandler(index)}
                             key={person.id}
+                            changed={(event) => this.nameChangedHandler(event, person.id)}
                         />
                     })}
                 </div>
