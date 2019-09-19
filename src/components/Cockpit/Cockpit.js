@@ -4,8 +4,11 @@ import classes from "./Cockpit.module.css";
 const cockpit = props => {
   useEffect(() => {
     console.log("[Cockpit.js] usEffect");
-    // Http request
-  });
+    // Http request...
+    setTimeout(() => {
+      alert("Saved data to cloud!");
+    }, 1000);
+  }, []);
 
   const assignedClasses = [];
   let btnClass = "";
