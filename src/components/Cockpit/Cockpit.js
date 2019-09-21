@@ -32,7 +32,7 @@ const cockpit = props => {
     assignedClasses.push(classes.red); // classes = [red]
   }
 
-  if (props.persons.personsLength <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push(classes.bold); // classes = ['red', 'bold']
   }
 
