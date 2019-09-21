@@ -9,17 +9,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     console.log("[App.js] constructor");
-    this.state = {
-      persons: [
-        { id: 1, name: "Max", age: 28 },
-        { id: 2, name: "Manu", age: 29 },
-        { id: 3, name: "Stephanie", age: 26 }
-      ],
-      otherState: "some other value",
-      showPersons: false,
-      showCockpit: true
-    };
   }
+
+  state = {
+    persons: [
+      { id: 1, name: "Max", age: 28 },
+      { id: 2, name: "Manu", age: 29 },
+      { id: 3, name: "Stephanie", age: 26 }
+    ],
+    otherState: "some other value",
+    showPersons: false,
+    showCockpit: true,
+    changeCounter: 0
+  };
 
   static getDerivedStateFromProps(props, state) {
     console.log("[App.js] getDerivedStateFromProps", props);
@@ -58,8 +60,11 @@ class App extends Component {
     persons[personIndex] = person;
 
     //Merge the original state with the updated one
-    this.setState({
-      persons: persons
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
     });
   };
 
